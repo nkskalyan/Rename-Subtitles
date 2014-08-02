@@ -1,7 +1,9 @@
 import re
 import os
-subsFile = os.popen('ls *.ssa')
+subExtension='ssa'
+subsFile = os.popen('ls *.' + subExtension)
 subsList = subsFile.readlines()
+#Edit trailing space. We don't want it to be escaped
 subsList= [re.sub("\s$","",name) for name in subsList]
 subsList= [re.sub('\s','\\ ',name) for name in subsList]
 
@@ -10,7 +12,8 @@ movFile = os.popen('ls *.mkv')
 movList = movFile.readlines()
 print movList
 newName = [re.sub('\n','',name) for name in movList]
-newName = [re.sub('mkv','ssa',name) for name in newName]
+newName = [re.sub('mkv',subExtension,name) for name in newName]
+#Edit trailing space. We don't want it to be escaped
 newName = [re.sub('\s$','',name) for name in newName]
 newName = [re.sub('\s','\\ ',name) for name in newName]
 print newName
